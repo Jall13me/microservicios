@@ -1,0 +1,192 @@
+openapi: 3.0.3
+info:
+  title: Orquestador
+  version: 1.0.0
+  description: Servicio orquestador que coordina cliente-service y pedido-service
+
+servers:
+  - url: http://localhost:8080
+
+paths:
+  /ordenes:
+    get:
+      summary: Listar todas las órdenes compuestas
+      tags: [ Ordenes ]
+      responses:
+        '200':
+          description: Lista de órdenes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrdenResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+    post:
+      summary: Crear orden completa (cliente + pedido)
+      tags: [ Ordenes ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrdenRequest'
+
+      responses:
+        '201':
+          description: Orden creada correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrdenResponse'
+
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /ordenes/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+
+    get:
+      summary: Obtener orden por ID
+      tags: [ Ordenes ]
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrdenResponse'
+          description: Obtiene la orde por ID
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+
+    put:
+      summary: Reemplazar orden completa
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrdenRequest'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrdenResponse'
+          description: Actualiza la orden
+
+
+    patch:
+      summary: Modificar parcialmente la orden
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrdenRequest'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrdenResponse'
+          description: Modifica la orden
+
+
+    delete:
+      summary: Cancelar orden
+      responses:
+        '204':
+          description: Orden eliminada
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+components:
+
+  schemas:
+    OrdenRequest:
+      type: object
+      properties:
+        cliente:
+          $ref: '#/components/schemas/ClienteData'
+        pedido:
+          $ref: '#/components/schemas/PedidoData'
+
+    OrdenResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        cliente:
+          $ref: '#/components/schemas/ClienteData'
+        pedido:
+          $ref: '#/components/schemas/PedidoData'
+
+
+    ClienteData:
+      type: object
+      properties:
+        id:
+          type: integer
+        nombre:
+          type: string
+        email:
+          type: string
+
+
+    PedidoData:
+      type: object
+      properties:
+        id:
+          type: integer
+        producto:
+          type: string
+        cantidad:
+          type: integer
+
+    ErrorResponse:
+      type: object
+      properties:
+        timestamp:
+          type: string
+        status:
+          type: integer
+        error:
+          type: string
+        message:
+          type: string
+        path:
+          type: string
+
+
+  responses:
+
+    BadRequest:
+      description: Datos inválidos
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+    NotFound:
+      description: No encontrado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+    InternalServerError:
+      description: Error interno
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
