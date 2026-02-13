@@ -13,7 +13,7 @@ import org.mapstruct.*;
 public interface ClientMapper {
 
         @Mapping(target = "id", ignore = true)
-        @Mapping(target = "fechaRegistrp",ignore = true)
+        @Mapping(target = "fechaRegistro",ignore = true)
         @Mapping(target = "activo",ignore = true)
         Client toEntity(ClientRequest request);
 

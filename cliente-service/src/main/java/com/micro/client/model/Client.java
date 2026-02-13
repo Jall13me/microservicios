@@ -27,7 +27,6 @@ public class Client {
     private LocalDateTime fechaRegistro;
 
     @Column(name = "activo")
-    @Builder.Default
     private boolean activo = true;
 
     @PrePersist
