@@ -2,7 +2,7 @@ package com.micro.client.controller;
 
 import com.micro.client.dto.ClientRequest;
 import com.micro.client.dto.ClientResponse;
-import com.micro.client.service.ClienteService;
+import com.micro.client.service.ClientService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,13 +19,13 @@ import java.util.List;
 @Slf4j
 public class ClienteController {
 
-    private final ClienteService clienteService;
+    private final ClientService clientService;
 
     @PostMapping
     public ResponseEntity<ClientResponse> crearCliente(@Valid @RequestBody ClientRequest request) {
         log.info("POST /clientes - Crear cliente: {}", request.getEmail());
 
-        ClientResponse response = clienteService.crearCliente(request);
+        ClientResponse response = clientService.crearCliente(request);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -34,7 +34,7 @@ public class ClienteController {
     public ResponseEntity<List<ClientResponse>> obtenerTodosLosClientes() {
         log.info("GET /clientes - Obtener todos los clientes");
 
-        List<ClientResponse> clientes = clienteService.obtenerTodosLosClientes();
+        List<ClientResponse> clientes = clientService.obtenerTodosLosClientes();
 
         return ResponseEntity.ok(clientes);
     }
@@ -43,7 +43,7 @@ public class ClienteController {
     public ResponseEntity<ClientResponse> obtenerClientePorId(@PathVariable Long id) {
         log.info("GET /clientes/{} - Obtener cliente por ID", id);
 
-        ClientResponse cliente = clienteService.obtenerClientePorId(id);
+        ClientResponse cliente = clientService.obtenerClientePorId(id);
 
         return ResponseEntity.ok(cliente);
     }
@@ -55,7 +55,7 @@ public class ClienteController {
 
         log.info("PUT /clientes/{} - Actualizar cliente", id);
 
-        ClientResponse response = clienteService.actualizarCliente(id, request);
+        ClientResponse response = clientService.actualizarCliente(id, request);
 
         return ResponseEntity.ok(response);
     }
@@ -67,7 +67,7 @@ public class ClienteController {
 
         log.info("PATCH /clientes/{} - Actualización parcial", id);
 
-        ClientResponse response = clienteService.actualizarClienteParcial(id, request);
+        ClientResponse response = clientService.actualizarClienteParcial(id, request);
 
         return ResponseEntity.ok(response);
     }
@@ -76,7 +76,7 @@ public class ClienteController {
     public ResponseEntity<Void> eliminarCliente(@PathVariable Long id) {
         log.info("DELETE /clientes/{} - Eliminar cliente", id);
 
-        clienteService.eliminarCliente(id);
+        clientService.eliminarCliente(id);
 
         return ResponseEntity.noContent().build();
     }

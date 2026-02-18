@@ -6,6 +6,8 @@ import com.micro.client.model.Client;
 import org.mapstruct.Mapper;
 import org.mapstruct.*;
 
+import java.util.List;
+
 @Mapper(
         componentModel = "spring",
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
@@ -23,4 +25,6 @@ public interface ClientMapper {
         @Mapping(target = "fechaRegistro",ignore = true)
         @Mapping(target = "activo",ignore = true)
         void updateEntityFromRequest(ClientRequest request, @MappingTarget Client client);
+
+        List<ClientResponse> toResponseList(List<Client> clients);
 }
