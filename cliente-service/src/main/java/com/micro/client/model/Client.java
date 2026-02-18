@@ -17,7 +17,7 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 100)
+    @Column(nullable = false, length = 100)
     private String nombre;
 
     @Column(nullable = false, length = 150)
@@ -27,15 +27,15 @@ public class Client {
     private LocalDateTime fechaRegistro;
 
     @Column(name = "activo")
-    private boolean activo = true;
+    private boolean active = true;
 
     @PrePersist
     protected void onCreate() {
         if (this.fechaRegistro == null) {
             fechaRegistro = LocalDateTime.now();
         }
-        if (activo==false) {
-            activo = true;
+        if (!active) {
+            active = true;
         }
     }
 }

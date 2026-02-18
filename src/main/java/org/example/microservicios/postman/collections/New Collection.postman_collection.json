@@ -1,0 +1,21 @@
+{
+  "info": {
+    "_postman_id": "6e9e840f-773c-4ad7-b7a2-2388b6ec4e24",
+    "name": "client service api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "New Request",
+      "id": "7617f7ce-d886-4e5f-99ee-69376a9e1238",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    }
+  ]
+}

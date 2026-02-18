@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping("/clientes")
 @RequiredArgsConstructor
 @Slf4j
-public class ClienteController {
+public class ClientController {
 
     private final ClientService clientService;
 
