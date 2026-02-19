@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class ClientEvent {
 
     private Long clienteId;
-    private String nombre;
+    private String name;
     private String email;
 
     private String accion;
