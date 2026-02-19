@@ -15,14 +15,14 @@ import java.util.List;
 public interface ClientMapper {
 
         @Mapping(target = "id", ignore = true)
-        @Mapping(target = "fechaRegistro",ignore = true)
+        @Mapping(target = "createdAt",ignore = true)
         @Mapping(target = "active",ignore = true)
         Client toEntity(ClientRequest request);
 
         ClientResponse toResponse(Client client);
 
         @Mapping(target = "id", ignore = true)
-        @Mapping(target = "fechaRegistro",ignore = true)
+        @Mapping(target = "createdAt",ignore = true)
         @Mapping(target = "active",ignore = true)
         void updateEntityFromRequest(ClientRequest request, @MappingTarget Client client);
 

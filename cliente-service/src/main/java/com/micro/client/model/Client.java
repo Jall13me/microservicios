@@ -23,19 +23,28 @@ public class Client {
     @Column(nullable = false, length = 150)
     private String email;
 
-    @Column(name = "fecha_registro")
-    private LocalDateTime fechaRegistro;
+    @Column(name = "createdAt",updatable = false)
+    private LocalDateTime createdAt;
 
-    @Column(name = "activo")
+    @Column(name = "updateAt",insertable = false)
+    private LocalDateTime updatedAt;
+
+    @Column(name = "active")
     private boolean active = true;
 
     @PrePersist
     protected void onCreate() {
-        if (this.fechaRegistro == null) {
-            fechaRegistro = LocalDateTime.now();
+        if (this.createdAt == null) {
+            createdAt = LocalDateTime.now();
         }
         if (!active) {
             active = true;
         }
     }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
+
 }

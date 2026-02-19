@@ -22,61 +22,61 @@ public class ClientController {
     private final ClientService clientService;
 
     @PostMapping
-    public ResponseEntity<ClientResponse> crearCliente(@Valid @RequestBody ClientRequest request) {
+    public ResponseEntity<ClientResponse> createClient(@Valid @RequestBody ClientRequest request) {
         log.info("POST /clientes - Crear cliente: {}", request.getEmail());
 
-        ClientResponse response = clientService.crearCliente(request);
+        ClientResponse response = clientService.createClient(request);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @GetMapping
-    public ResponseEntity<List<ClientResponse>> obtenerTodosLosClientes() {
+    public ResponseEntity<List<ClientResponse>> getAllClients() {
         log.info("GET /clientes - Obtener todos los clientes");
 
-        List<ClientResponse> clientes = clientService.obtenerTodosLosClientes();
+        List<ClientResponse> clientes = clientService.getAllClients();
 
         return ResponseEntity.ok(clientes);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ClientResponse> obtenerClientePorId(@PathVariable Long id) {
+    public ResponseEntity<ClientResponse> getClientById(@PathVariable Long id) {
         log.info("GET /clientes/{} - Obtener cliente por ID", id);
 
-        ClientResponse cliente = clientService.obtenerClientePorId(id);
+        ClientResponse cliente = clientService.getClientById(id);
 
         return ResponseEntity.ok(cliente);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ClientResponse> actualizarCliente(
+    public ResponseEntity<ClientResponse> updateClient(
             @PathVariable Long id,
             @Valid @RequestBody ClientRequest request) {
 
         log.info("PUT /clientes/{} - Actualizar cliente", id);
 
-        ClientResponse response = clientService.actualizarCliente(id, request);
+        ClientResponse response = clientService.updateClient(id, request);
 
         return ResponseEntity.ok(response);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<ClientResponse> actualizarClienteParcial(
+    public ResponseEntity<ClientResponse> partialUpdateClient(
             @PathVariable Long id,
             @RequestBody ClientRequest request) {
 
         log.info("PATCH /clientes/{} - Actualización parcial", id);
 
-        ClientResponse response = clientService.actualizarClienteParcial(id, request);
+        ClientResponse response = clientService.partialUpdateClient(id, request);
 
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarCliente(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteClient(@PathVariable Long id) {
         log.info("DELETE /clientes/{} - Eliminar cliente", id);
 
-        clientService.eliminarCliente(id);
+        clientService.deleteClient(id);
 
         return ResponseEntity.noContent().build();
     }

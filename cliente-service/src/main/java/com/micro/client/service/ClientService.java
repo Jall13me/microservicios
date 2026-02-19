@@ -25,7 +25,7 @@ public class ClientService {
 
 
     @Transactional
-    public ClientResponse crearCliente(ClientRequest request) {
+    public ClientResponse createClient(ClientRequest request) {
         log.info("Creando cliente con email: {}", request.getEmail());
 
         if (clientRepository.existsByEmail(request.getEmail())) {
@@ -40,14 +40,14 @@ public class ClientService {
         return clientMapper.toResponse(savedClient);
     }
 
-    public List<ClientResponse> obtenerTodosLosClientes() {
+    public List<ClientResponse> getAllClients() {
         log.info("Obteniendo todos los clientes");
 
         List<Client> clients = clientRepository.findAll();
         return clientMapper.toResponseList(clients);
     }
 
-    public ClientResponse obtenerClientePorId(Long id) {
+    public ClientResponse getClientById(Long id) {
         log.info("Obteniendo cliente ID: {}", id);
 
         Client cliente = clientRepository.findById(id)
@@ -56,7 +56,7 @@ public class ClientService {
         return clientMapper.toResponse(cliente);
     }
 
-    public ClientResponse actualizarCliente(Long id, ClientRequest request) {
+    public ClientResponse updateClient(Long id, ClientRequest request) {
         log.info("Actualizando cliente ID: {}", id);
 
         Client cliente = clientRepository.findById(id)
@@ -75,7 +75,7 @@ public class ClientService {
         return clientMapper.toResponse(updatedCliente);
     }
 
-    public ClientResponse actualizarClienteParcial(Long id, ClientRequest request) {
+    public ClientResponse partialUpdateClient(Long id, ClientRequest request) {
         log.info("Actualizando parcialmente cliente ID: {}", id);
 
         Client cliente = clientRepository.findById(id)
@@ -95,7 +95,7 @@ public class ClientService {
         return clientMapper.toResponse(updatedCliente);
     }
 
-    public void eliminarCliente(Long id) {
+    public void deleteClient(Long id) {
         log.info("Eliminando cliente ID: {}", id);
 
         Client cliente = clientRepository.findById(id)

@@ -14,6 +14,11 @@ public class ClientResponse {
     private Long id;
     private String name;
     private String email;
-    private LocalDateTime createdDate;
-    private boolean active;
+
+    @Builder.Default
+    private LocalDateTime createdAt = LocalDateTime.now();
+    @Builder.Default
+    private LocalDateTime updatedAt = LocalDateTime.now();
+    @Builder.Default
+    private Boolean active = true;
 }

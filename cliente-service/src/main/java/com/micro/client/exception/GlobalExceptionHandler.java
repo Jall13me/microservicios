@@ -24,12 +24,14 @@ public class GlobalExceptionHandler {
 
         log.error("Cliente no encontrado: {}", ex.getMessage());
 
-        ErrorResponse error = new ErrorResponse();
-        error.setTimestamp(LocalDateTime.now());
-        error.setStatus(HttpStatus.NOT_FOUND.value());
-        error.setError("NOT_FOUND");
-        error.setMessage(ex.getMessage());
-        error.setPath(request.getRequestURI());
+        ErrorResponse error = ErrorResponse.builder()
+        .timestamp(LocalDateTime.now())
+        .status(HttpStatus.NOT_FOUND.value())
+        .error("NOT_FOUND")
+        .message(ex.getMessage())
+        .path(request.getRequestURI())
+                .build();
+
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
@@ -41,12 +43,12 @@ public class GlobalExceptionHandler {
 
         log.error("Email duplicado: {}", ex.getMessage());
 
-        ErrorResponse error = new ErrorResponse();
-        error.setTimestamp(LocalDateTime.now());
-        error.setStatus(HttpStatus.CONFLICT.value());
-        error.setError("CONFLICT");
-        error.setMessage(ex.getMessage());
-        error.setPath(request.getRequestURI());
+        ErrorResponse error = ErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.CONFLICT.value())
+                .error("CONFLICT")
+                .message(ex.getMessage())
+                .build();
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }
@@ -64,12 +66,13 @@ public class GlobalExceptionHandler {
 
         log.error("Errores de validación: {}", errors);
 
-        ErrorResponse error = new ErrorResponse();
-        error.setTimestamp(LocalDateTime.now());
-        error.setStatus(HttpStatus.BAD_REQUEST.value());
-        error.setError("BAD_REQUEST");
-        error.setMessage(errors);
-        error.setPath(request.getRequestURI());
+        ErrorResponse error = ErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .error("BAD_REQUEST")
+                .message(errors)
+                .path(request.getRequestURI())
+                .build();
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
@@ -81,12 +84,12 @@ public class GlobalExceptionHandler {
 
         log.error("Error interno del servidor", ex);
 
-        ErrorResponse error = new ErrorResponse();
-        error.setTimestamp(LocalDateTime.now());
-        error.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-        error.setError("INTERNAL_SERVER_ERROR");
-        error.setMessage("Error interno del servidor");
-        error.setPath(request.getRequestURI());
+        ErrorResponse error = ErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .error("INTERNAL_SERVER_ERROR")
+                .path(request.getRequestURI())
+                .build();
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
     }
